@@ -247,7 +247,7 @@ namespace антиDGA
             labelStatus.Text = "Эксперимент завершён";
         }
 
-        private void button5_Click_1(object sender, EventArgs e)
+        private async void button5_Click_1(object sender, EventArgs e)
         {
             openFileDialog1.Filter = "Текстовые файлы (*.txt)|*.txt|Все файлы (*.*)|*.*";
 
@@ -270,10 +270,15 @@ namespace антиDGA
 
                 Ngram ngram = Ngram.getInstance();
 
-                for (int i = 2; i < 5; i++)
+                progressBar1.Maximum = countRows;
+
+                await Task.Factory.StartNew(() =>
                 {
-                    ngram.CreateDictionary(domains, labelsClass, i);
-                }
+                    for (int i = 4; i < 6; i++)
+                    {
+                        ngram.CreateDictionary(domains, labelsClass, i, labelStatus, progressBar1);
+                    }
+                });
             }
         }
 

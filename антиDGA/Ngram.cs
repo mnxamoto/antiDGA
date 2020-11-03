@@ -5,6 +5,7 @@ using System.Linq;
 using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace антиDGA
 {
@@ -86,7 +87,7 @@ namespace антиDGA
             return frequency;
         }
 
-        public void CreateDictionary(string[] domains, string[] labelsClass, int lengthGram)
+        public void CreateDictionary(string[] domains, string[] labelsClass, int lengthGram, Label status, ProgressBar progress)
         {
            List<Gram> grams = new List<Gram>();
 
@@ -123,6 +124,12 @@ namespace антиDGA
                         gram.noLegitimate++;
                     }
                 }
+
+                progress.Invoke(new Action(() =>
+                {
+                    progress.Value = i;
+                    status.Text = $"{i}/{countDomains}";
+                }));
             }
 
             //Вычисление весов грамм
