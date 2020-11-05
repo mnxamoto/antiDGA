@@ -274,7 +274,7 @@ namespace антиDGA
 
                 await Task.Factory.StartNew(() =>
                 {
-                    for (int i = 4; i < 6; i++)
+                    for (int i = 2; i < 6; i++)
                     {
                         ngram.CreateDictionary(domains, labelsClass, i, labelStatus, progressBar1);
                     }
@@ -324,20 +324,24 @@ namespace антиDGA
 
                 Evaluation evaluation = result.evaluation;
 
-                string[] row = new string[10];
-                row[0] = evaluation.weightedPrecision().ToString(); //Точность
-                row[1] = evaluation.weightedRecall().ToString(); //Полнота
-                row[2] = evaluation.weightedFMeasure().ToString(); //F-мера //Accuracy
-                row[3] = (evaluation.pctCorrect() / 100).ToString(); //Достоверноесть
-                row[4] = evaluation.weightedTruePositiveRate().ToString(); //TPR
-                row[5] = evaluation.weightedFalsePositiveRate().ToString(); //FPR
-                row[6] = evaluation.weightedAreaUnderROC().ToString(); //ROC
+                for (int i = 0; i < 2; i++)
+                {
+                    string[] row = new string[11];
+                    row[0] = $"{i}";
+                    row[1] = evaluation.precision(i).ToString(); //Точность
+                    row[2] = evaluation.recall(i).ToString(); //Полнота
+                    row[3] = evaluation.fMeasure(i).ToString(); //F-мера //Accuracy
+                    row[4] = (evaluation.pctCorrect() / 100).ToString(); //Достоверноесть
+                    row[5] = evaluation.truePositiveRate(i).ToString(); //TPR
+                    row[6] = evaluation.falsePositiveRate(i).ToString(); //FPR
+                    row[7] = evaluation.areaUnderROC(i).ToString(); //ROC
 
-                row[7] = result.timeTrain.ElapsedTicks.ToString(); //Время обучения
-                row[8] = result.timeTest.ElapsedTicks.ToString(); //Время тестирования
-                row[9] = result.timeСlassification.ElapsedTicks.ToString(); //Время классификации 1 экзепляра
+                    row[8] = result.timeTrain.ElapsedTicks.ToString(); //Время обучения
+                    row[9] = result.timeTest.ElapsedTicks.ToString(); //Время тестирования
+                    row[10] = result.timeСlassification.ElapsedTicks.ToString(); //Время классификации 1 экзепляра
 
-                dataGridView5.Rows.Add(row);
+                    dataGridView5.Rows.Add(row);
+                }
 
                 labelStatus.Text = "Тестирование прошло успешно.";
             }
