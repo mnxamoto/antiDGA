@@ -1,9 +1,2 @@
-
-packages/CNTK.Deps.Cuda.2.7.0/
-packages/CNTK.Deps.cuDNN.2.7.0/
-packages/CNTK.Deps.MKL.2.7.0/
-packages/CNTK.Deps.OpenCV.Zip.2.7.0/
-packages/CNTK.GPU.2.7.0/
 .vs/
-антиDGA/bin/
 антиDGA/obj/
